@@ -1,0 +1,7 @@
+{
+    "name": "alanfelipe/sistema-financeiro",
+    "require": {
+        "php": ">=7.4",
+        "ext-pdo": "*"
+    }
+}
