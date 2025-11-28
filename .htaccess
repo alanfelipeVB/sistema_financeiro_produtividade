@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /sistema_financeiro_produtividade/
+
+# Se o arquivo ou diretório existe, serve normalmente (essa é a exceção)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Caso contrário, redireciona tudo para index.php (Router)
+RewriteRule ^ index.php [QSA,L]

@@ -1,0 +1,106 @@
+CREATE DATABASE IF NOT EXISTS `sistema_financeiro_produtividade`;
+USE `sistema_financeiro_produtividade`;
+
+CREATE TABLE IF NOT EXISTS `USUARIO` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `nome` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
+    `senha` VARCHAR(255) NOT NULL,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `CONTA` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `nome` VARCHAR(255) NOT NULL,
+    `saldo` DECIMAL(10, 2) DEFAULT 0.00,
+    `tipo` VARCHAR(50) NOT NULL,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `CATEGORIA` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `nome` VARCHAR(255) NOT NULL,
+    `tipo_transacao` VARCHAR(50) NOT NULL, -- 'receita' ou 'despesa'
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `TRANSACAO` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `conta_id` INT NOT NULL,
+    `categoria_id` INT NOT NULL,
+    `usuario_id` INT NOT NULL, -- Adicionado para facilitar a consulta por usuário
+    `descricao` VARCHAR(255) NOT NULL,
+    `valor` DECIMAL(10, 2) NOT NULL,
+    `data_transacao` DATE NOT NULL,
+    `tipo` VARCHAR(50) NOT NULL, -- 'receita' ou 'despesa'
+    `pago_recebido` BOOLEAN DEFAULT FALSE,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`conta_id`) REFERENCES `CONTA`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`categoria_id`) REFERENCES `CATEGORIA`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `ORCAMENTO` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `categoria_id` INT NOT NULL,
+    `valor_orcado` DECIMAL(10, 2) NOT NULL,
+    `valor_gasto` DECIMAL(10, 2) DEFAULT 0.00,
+    `mes_ano` DATE NOT NULL, -- Armazena o primeiro dia do mês (YYYY-MM-01)
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`categoria_id`) REFERENCES `CATEGORIA`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `LISTA_TAREFA` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `nome` VARCHAR(255) NOT NULL,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `TAREFA` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `lista_tarefa_id` INT NOT NULL,
+    `titulo` VARCHAR(255) NOT NULL,
+    `descricao` TEXT,
+    `prioridade` VARCHAR(50) DEFAULT 'media',
+    `data_vencimento` DATE,
+    `status` VARCHAR(50) DEFAULT 'a fazer',
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`lista_tarefa_id`) REFERENCES `LISTA_TAREFA`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `EVENTO` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `titulo` VARCHAR(255) NOT NULL,
+    `descricao` TEXT,
+    `data_inicio` DATETIME NOT NULL,
+    `data_fim` DATETIME,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `NOTA` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `usuario_id` INT NOT NULL,
+    `titulo` VARCHAR(255),
+    `conteudo` TEXT,
+    `data_criacao` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_atualizacao` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`usuario_id`) REFERENCES `USUARIO`(`id`) ON DELETE CASCADE
+);
