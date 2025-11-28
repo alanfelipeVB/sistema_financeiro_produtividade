@@ -2,6 +2,10 @@
 
 class AuthController extends Controller
 {
+    function __construct()	{
+        require_once __DIR__ . '/../../helpers/url.php';
+    }
+
     public function showLoginForm()
     {
         $this->view("auth/login");
@@ -19,7 +23,7 @@ class AuthController extends Controller
                 session_start();
                 $_SESSION["user_id"] = $user["id"];
                 $_SESSION["user_name"] = $user["nome"];
-                $this->redirect("/dashboard");
+                $this->redirect(base_url("dashboard"));
             } else {
                 $this->view("auth/login", ["error" => "Email ou senha inválidos."]);
             }
@@ -31,7 +35,7 @@ class AuthController extends Controller
         session_start();
         session_unset();
         session_destroy();
-        $this->redirect("/login");
+        $this->redirect(base_url("login"));
     }
 }
 

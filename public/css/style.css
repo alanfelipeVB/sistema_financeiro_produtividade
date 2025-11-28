@@ -6,6 +6,58 @@ body {
     color: #333;
 }
 
+.sidebar {
+    width: 240px;
+    background: #1f1f29;
+    height: 100vh;
+    padding: 20px 0;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar .logo {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu li a {
+    color: #d5d7de;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    transition: 0.2s ease;
+    font-size: 15px;
+}
+
+.menu li a:hover {
+    background: #292937;
+    color: #fff;
+    padding-left: 28px;
+}
+
+.menu li .exit {
+    color: #ff6b6b;
+}
+
+.content {
+    margin-left: 240px;
+    padding: 30px;
+    width: calc(100% - 240px);
+}
+
 .container {
     width: 80%;
     margin: 20px auto;

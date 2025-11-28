@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include __DIR__ . '/../common/header.php'; ?>
     <title>Contas - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Minhas Contas</h1>
-        <p><a href="/dashboard">Voltar para o Dashboard</a></p>
-        <p><a href="/accounts/create">Adicionar Nova Conta</a></p>
+    <?php include __DIR__ . '/../common/menu.php'; ?>
+    <div class="content">
+        <a href="javascript:history.back()" class="btn btn-secondary text-decoration-none" >
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
+        <br>
+        <br>
+        <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+            <h1 class="m-0">Minhas Contas</h1>
 
-        <?php if (empty($accounts)): ?>
-            <p>Nenhuma conta encontrada.</p>
-        <?php else: ?>
-            <table>
-                <thead>
+            <a href="<?= base_url("accounts/create") ?>" class="btn btn-primary d-flex align-items-center gap-2">
+                <i class="fa-solid fa-plus"></i>
+                Adicionar Conta
+            </a>
+        </div>
+
+       <?php if (empty($accounts)): ?>
+    <div class="alert alert-info" role="alert">
+        Nenhuma conta encontrada.
+    </div>
+<?php else: ?>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Saldo</th>
+                    <th>Tipo</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($accounts as $account): ?>
                     <tr>
-                        <th>Nome</th>
-                        <th>Saldo</th>
-                        <th>Tipo</th>
-                        <th>Ações</th>
+                        <td><?= htmlspecialchars($account["nome"]) ?></td>
+                        <td>R$ <?= number_format($account["saldo"], 2, ',', '.') ?></td>
+                        <td><?= ucfirst(htmlspecialchars($account["tipo"])) ?></td>
+                        <td class="text-center">
+                            <a href="<?= base_url("accounts/edit?id=" . $account["id"]) ?>" class="btn btn-sm btn-warning me-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Editar
+                            </a>
+                            <a href="<?= base_url("accounts/delete?id=" . $account["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">
+                                <i class="fa-solid fa-trash"></i> Excluir
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($accounts as $account): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($account["nome"]) ?></td>
-                            <td><?= htmlspecialchars($account["saldo"]) ?></td>
-                            <td><?= htmlspecialchars($account["tipo"]) ?></td>
-                            <td>
-                                <a href="/accounts/edit/<?= $account["id"] ?>">Editar</a>
-                                <a href="/accounts/delete/<?= $account["id"] ?>">Excluir</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>
+
     </div>
 </body>
 </html>

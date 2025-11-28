@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <?php include __DIR__ . '/../common/header.php'; ?>
+    <title>Dashboard - Sistema Financeiro e Produtividade</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Bem-vindo, <?= $user_name ?>!</h1>
-        <p>Este é o seu dashboard. Aqui você pode gerenciar suas finanças e produtividade.</p>
-        <nav>
-            <ul>
-                <li><a href="/transactions">Transações</a></li>
-                <li><a href="/accounts">Contas</a></li>
-                <li><a href="/categories">Categorias</a></li>
-                <li><a href="/budgets">Orçamentos</a></li>
-                <li><a href="/tasks">Tarefas</a></li>
-                <li><a href="/events">Eventos</a></li>
-                <li><a href="/notes">Notas</a></li>
-                <li><a href="/logout">Sair</a></li>
-            </ul>
-        </nav>
+    <?php include __DIR__ . '/../common/menu.php'; ?>
+    <div class="content">
+        <header class="header">
+            <h1 class="title">Olá, <span><?= $user_name ?></span> 👋</h1>
+            <p class="subtitle">Gerencie suas finanças e sua produtividade com estilo.</p>
+        </header>
+        <main class="dashboard">
+            <div>
+                <h2>Visão Geral das Finanças</h2>
+                <?php if (!empty($contas)): ?>
+                    <ul>
+                        <?php foreach ($contas as $conta): ?>
+                            <li><?= htmlspecialchars($conta['nome']) ?>: R$ <?= number_format($conta['saldo'], 2, ',', '.') ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>Você ainda não adicionou nenhuma conta. <a href="<?= base_url('accounts/create') ?>">Adicionar Conta</a></p>
+                <?php endif; ?>
+            </div>
+        </main>
     </div>
 </body>
 </html>
-

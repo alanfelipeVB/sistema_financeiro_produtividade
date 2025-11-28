@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php require_once __DIR__ . '/../../../helpers/url.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistema de Gestão Financeira e Produtividade</title>
@@ -12,7 +13,7 @@
         <?php if (isset($error)): ?>
             <p style="color: red;"><?= $error ?></p>
         <?php endif; ?>
-        <form action="/login" method="POST">
+        <form action="<?= base_url('login') ?>" method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <br>
@@ -21,7 +22,7 @@
             <br>
             <button type="submit">Entrar</button>
         </form>
-        <p>Não tem uma conta? <a href="sistema_financeiro_produtividade/register">Registre-se</a></p>
+        <p>Não tem uma conta? <a href="<?= base_url('register') ?>">Registre-se</a></p>
     </div>
 </body>
 </html>

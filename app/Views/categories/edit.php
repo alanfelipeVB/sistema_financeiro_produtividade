@@ -13,15 +13,16 @@
         </a>
         <br>
         <br>
-        <h1>Adicionar Nova Categoria</h1>
+        <h1>Editar Categoria</h1>
 
         <?php if (isset($error)): ?>
             <p style="color: red;"><?= $error ?></p>
         <?php endif; ?>
 
-        <form action="<?= base_url("categories") ?>" method="POST">
+        <form action="<?= base_url("categories/edit") ?>" method="POST">
+            <input type="hidden" name="id" value="<?= $category["id"] ?>">
             <label for="nome">Nome da Categoria:</label>
-            <input type="text" id="nome" name="nome" required>
+            <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($category["nome"]) ?>" required>
             <br>
             <button type="submit">Salvar Categoria</button>
         </form>

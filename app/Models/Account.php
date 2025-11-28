@@ -12,5 +12,14 @@ class Account extends Model
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function getById($id)
+    {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT * FROM " . static::$table . " WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 

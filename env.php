@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php
 /*
 |--------------------------------------------------------------------------
 | Environment Configuration
@@ -15,5 +14,5 @@ class Env {
     public $dbHost    = 'localhost';
     public $dbUser    = 'root';
     public $dbPswd    = '';
-    public $dbName    = 'vibe';
+    public $dbName    = 'sistema_financeiro';
 }

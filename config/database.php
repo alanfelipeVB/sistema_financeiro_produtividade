@@ -3,7 +3,7 @@
 class Database
 {
     private static $host = 'localhost';
-    private static $db_name = 'sistema_financeiro_produtividade';
+    private static $db_name = 'sistema_financeiro';
     private static $username = 'root';
     private static $password = '';
     private static $conn;

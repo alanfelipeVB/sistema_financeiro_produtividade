@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php require_once __DIR__ . '/../../../helpers/url.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Transação - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="<?= $env->baseUrl ?> /public/css/style.css">
 </head>
 <body>
     <div class="container">
         <h1>Adicionar Nova Transação</h1>
-        <p><a href="/transactions">Voltar para Transações</a></p>
+        <p><a href="<?= base_url("transactions") ?>">Voltar para Transações</a></p>
 
         <?php if (isset($error)): ?>
             <p style="color: red;"><?= $error ?></p>
         <?php endif; ?>
 
-        <form action="/transactions" method="POST">
+        <form action="<?= base_url("transactions") ?>" method="POST">
             <label for="descricao">Descrição:</label>
             <input type="text" id="descricao" name="descricao" required>
             <br>

@@ -2,6 +2,10 @@
 
 class RegisterController extends Controller
 {
+    public function __construct() {
+        require_once __DIR__ . '/../../helpers/url.php';
+    }
+
     public function showRegistrationForm()
     {
         $this->view("auth/register");
@@ -43,7 +47,7 @@ class RegisterController extends Controller
                 session_start();
                 $_SESSION["user_id"] = $userId;
                 $_SESSION["user_name"] = $nome;
-                $this->redirect("/dashboard");
+                $this->redirect(base_url("dashboard"));
             } else {
                 $this->view("auth/register", ["error" => "Erro ao registrar usuário. Tente novamente."]);
             }

@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include __DIR__ . '/../common/header.php'; ?>
     <title>Categorias - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Minhas Categorias</h1>
-        <p><a href="/dashboard">Voltar para o Dashboard</a></p>
-        <p><a href="/categories/create">Adicionar Nova Categoria</a></p>
+    <?php include __DIR__ . '/../common/menu.php'; ?>
+    <div class="content">
+        <a href="javascript:history.back()" class="btn btn-secondary text-decoration-none" >
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
+        <br>
+        <br>
+        <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+            <h1 class="m-0">Minhas Categorias</h1>
+
+            <a href="<?= base_url("categories/create") ?>" class="btn btn-primary d-flex align-items-center gap-2">
+                <i class="fa-solid fa-plus"></i>
+                Adicionar Categoria
+            </a>
+        </div>
 
         <?php if (empty($categories)): ?>
-            <p>Nenhuma categoria encontrada.</p>
+            <div class="alert alert-info" role="alert">
+                Nenhuma categoria encontrada.
+            </div>
         <?php else: ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Tipo de Transação</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($categories as $category): ?>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                    <thead class="table-dark">
                         <tr>
-                            <td><?= htmlspecialchars($category["nome"]) ?></td>
-                            <td><?= htmlspecialchars($category["tipo_transacao"]) ?></td>
-                            <td>
-                                <a href="/categories/edit/<?= $category["id"] ?>">Editar</a>
-                                <a href="/categories/delete/<?= $category["id"] ?>">Excluir</a>
-                            </td>
+                            <th>Nome</th>
+                            <th class="text-end">Ações</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($categories as $category): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($category["nome"]) ?></td>
+                                <td class="text-end">
+                                    <a href="<?= base_url("categories/edit?id=" . $category["id"]) ?>" class="btn btn-sm btn-warning me-1">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                                    </a>
+                                    <a href="<?= base_url("categories/delete?id=" . $category["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta categoria?');">
+                                        <i class="fa-solid fa-trash"></i> Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif; ?>
+
     </div>
 </body>
 </html>

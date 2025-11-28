@@ -2,13 +2,19 @@
 
 class DashboardController extends Controller
 {
+    public function __construct() {
+        require_once __DIR__ . '/../../helpers/url.php';
+    }
+    
     public function index()
     {
         session_start();
         if (!isset($_SESSION["user_id"])) {
-            $this->redirect("/login");
+            $this->redirect(base_url("login"));
         }
-        $this->view("dashboard/index", ["user_name" => $_SESSION["user_name"]]);
+        $data["user_name"] = $_SESSION["user_name"];
+        $data["contas"] = Account::getByUserId($_SESSION["user_id"]);
+        $this->view("dashboard/index", $data);
     }
 }
 

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <?php require_once __DIR__ . '/../../../helpers/url.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="http://localhost/sistema_financeiro_produtividade/public/css/style.css">
+    <link rel="stylesheet" href="<?= $env->baseUrl ?> /public/css/style.css">
 </head>
 <body>
     <div class="container">
@@ -12,7 +13,7 @@
         <?php if (isset($error)): ?>
             <p style="color: red;"><?= $error ?></p>
         <?php endif; ?>
-        <form action="sistema_financeiro_produtividade/register" method="POST">
+        <form action="<?= base_url("register") ?>" method="POST">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
             <br>
@@ -27,7 +28,7 @@
             <br>
             <button type="submit">Registrar</button>
         </form>
-        <p>Já tem uma conta? <a href="sistema_financeiro_produtividade/login">Faça login</a></p>
+        <p>Já tem uma conta? <a href="<?= base_url("login") ?>">Faça login</a></p>
     </div>
 </body>
 </html>
