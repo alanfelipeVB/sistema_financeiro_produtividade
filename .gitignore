@@ -5,12 +5,11 @@ env.php
 
 # Composer
 /vendor/
-/composer.lock
 
 # Cache / Logs
 /logs/
-/cache/
-/tmp/
+ /cache/
+ /tmp/
 
 # Sistema operacional
 .DS_Store
@@ -24,11 +23,6 @@ nbproject/
 # Uploads do sistema
 /uploads/
 storage/
-
-# Arquivos do XAMPP/WAMP
-.htaccess
-.htaccess.backup
-*.bak
 
 # Arquivos de build
 node_modules/
