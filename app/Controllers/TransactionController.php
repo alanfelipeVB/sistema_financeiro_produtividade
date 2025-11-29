@@ -22,7 +22,7 @@ class TransactionController extends Controller
         if (!isset($_SESSION["user_id"])) {
             $this->redirect(base_url("login"));
         }
-        $accounts = Account::getByUserId($_SESSION["user_id"]); // Buscar contas do usuário logado
+        $accounts = Account::getByUserIdTransaction($_SESSION["user_id"]); // Buscar contas do usuário logado
         $categories = Category::getByUserId($_SESSION["user_id"]); // Buscar categorias do usuário logado
         $this->view("transactions/create", ["accounts" => $accounts, "categories" => $categories]);
     }

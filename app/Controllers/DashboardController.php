@@ -14,6 +14,10 @@ class DashboardController extends Controller
         }
         $data["user_name"] = $_SESSION["user_name"];
         $data["contas"] = Account::getByUserId($_SESSION["user_id"]);
+        $resumoFinanceiro = Transaction::getResumoFinanceiro($_SESSION["user_id"]);
+        $data["ganhos"] = $resumoFinanceiro['ganhos'];
+        $data["prejuizos"] = $resumoFinanceiro['prejuizos'];
+
         $this->view("dashboard/index", $data);
     }
 }

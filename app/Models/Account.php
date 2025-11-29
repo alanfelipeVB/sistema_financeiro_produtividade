@@ -2,12 +2,21 @@
 
 class Account extends Model
 {
-    protected static $table = 'CONTA';
+    protected static $table = 'conta';
 
     public static function getByUserId($userId)
     {
         $db = Database::getConnection();
         $stmt = $db->prepare("SELECT * FROM " . static::$table . " WHERE usuario_id = :user_id");
+        $stmt->bindParam(":user_id", $userId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getByUserIdTransaction($userId)
+    {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("SELECT * FROM " . static::$table . " WHERE usuario_id = :user_id AND status = 1");
         $stmt->bindParam(":user_id", $userId);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -44,12 +44,16 @@
                         <td>R$ <?= number_format($account["saldo"], 2, ',', '.') ?></td>
                         <td><?= ucfirst(htmlspecialchars($account["tipo"])) ?></td>
                         <td class="text-center">
-                            <a href="<?= base_url("accounts/edit?id=" . $account["id"]) ?>" class="btn btn-sm btn-warning me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Editar
-                            </a>
-                            <a href="<?= base_url("accounts/delete?id=" . $account["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">
-                                <i class="fa-solid fa-trash"></i> Excluir
-                            </a>
+                            <?php if ($account["status"]): ?>
+                                <a href="<?= base_url("accounts/edit?id=" . $account["id"]) ?>" class="btn btn-sm btn-warning me-1">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </a>
+                                <a href="<?= base_url("accounts/delete?id=" . $account["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">
+                                    <i class="fa-solid fa-trash"></i> Excluir
+                                </a>
+                            <?php else: ?>
+                                <span class="text-muted">Inativa</span>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

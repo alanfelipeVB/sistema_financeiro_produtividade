@@ -1,16 +1,28 @@
 <?php
 
+require_once __DIR__ . '/../env.php';
+
 class Database
 {
     private static $host = 'localhost';
-    private static $db_name = 'sistema_financeiro';
-    private static $username = 'root';
-    private static $password = '';
+    private static $db_name;
+    private static $username;
+    private static $password;
     private static $conn;
+
+    public static function init()
+    {
+        $env = new Env();
+        self::$db_name = $env->dbName;
+        self::$username = $env->dbUser;
+        self::$password = $env->dbPswd;
+    }
 
     public static function connect()
     {
-        self::$conn = null;
+        if (!isset(self::$db_name)) {
+            self::init();
+        }
 
         try {
             self::$conn = new PDO(
@@ -31,4 +43,3 @@ class Database
         return self::$conn;
     }
 }
-

@@ -47,7 +47,10 @@
                             <tr>
                                 <td><?= htmlspecialchars($transaction["descricao"]) ?></td>
                                 <td>R$ <?= number_format($transaction["valor"], 2, ',', '.') ?></td>
-                                <td><?= htmlspecialchars($transaction["data_transacao"]) ?></td>
+                                <td>
+                                    <?= date("d/m/Y", strtotime($transaction["data_transacao"])) ?>
+                                </td>
+
                                 <td>
                                     <?php if ($transaction["tipo"] === "receita"): ?>
                                         <span class="badge bg-success">Receita</span>

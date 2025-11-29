@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php require_once __DIR__ . '/../../../helpers/url.php'; ?>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include __DIR__ . '/../common/header.php'; ?>
     <title>Registro - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="<?= $env->baseUrl ?> /public/css/style.css">
 </head>
 <body>
     <div class="container">

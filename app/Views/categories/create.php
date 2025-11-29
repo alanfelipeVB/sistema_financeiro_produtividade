@@ -23,7 +23,7 @@
             <label for="nome">Nome da Categoria:</label>
             <input type="text" id="nome" name="nome" required>
             <br>
-            <button type="submit">Salvar Categoria</button>
+            <button type="submit" class="w-100">Salvar Categoria</button>
         </form>
     </div>
 </body>

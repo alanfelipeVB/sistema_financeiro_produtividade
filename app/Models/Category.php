@@ -2,7 +2,7 @@
 
 class Category extends Model
 {
-    protected static $table = 'CATEGORIA';
+    protected static $table = 'categoria';
 
     public static function getByUserId($userId)
     {

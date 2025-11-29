@@ -48,6 +48,7 @@ CREATE TABLE `conta` (
   `nome` varchar(255) NOT NULL,
   `saldo` decimal(10,2) DEFAULT 0.00,
   `tipo` varchar(50) NOT NULL,
+  `status` tinyint(1) DEFAULT 1,
   `data_criacao` datetime DEFAULT current_timestamp(),
   `data_atualizacao` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -167,6 +168,7 @@ CREATE TABLE `usuario` (
   `data_criacao` datetime DEFAULT current_timestamp(),
   `data_atualizacao` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Índices para tabelas despejadas

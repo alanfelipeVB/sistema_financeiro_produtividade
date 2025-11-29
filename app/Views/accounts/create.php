@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php require_once __DIR__ . '/../../../helpers/url.php'; ?>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include __DIR__ . '/../common/header.php'; ?>
     <title>Adicionar Conta - Sistema de Gestão Financeira e Produtividade</title>
-    <link rel="stylesheet" href="<?= $env->baseUrl ?> /public/css/style.css">
 </head>
 <body>
-    <div class="container">
+    <?php include __DIR__ . '/../common/menu.php'; ?>
+    <div class="content">
+        <a href="javascript:history.back()" class="btn btn-secondary text-decoration-none" >
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
+        <br>
+        <br>
         <h1>Adicionar Nova Conta</h1>
-        <p><a href="<?= base_url("accounts") ?>">Voltar para Contas</a></p>
 
         <?php if (isset($error)): ?>
             <p style="color: red;"><?= $error ?></p>
@@ -31,7 +34,7 @@
                 <option value="Dinheiro">Dinheiro</option>
             </select>
             <br>
-            <button type="submit">Salvar Conta</button>
+            <button type="submit" class="w-100">Salvar Conta</button>
         </form>
     </div>
 </body>

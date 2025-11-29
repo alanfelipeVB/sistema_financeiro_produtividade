@@ -2,7 +2,7 @@
 
 class Transaction extends Model
 {
-    protected static $table = 'TRANSACAO';
+    protected static $table = 'transacao';
 
     public function somaValue($data)
     {
@@ -78,5 +78,56 @@ class Transaction extends Model
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
+    public static function getTotalGanhos($userId)
+    {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("
+            SELECT SUM(valor) AS total
+            FROM transacao
+            WHERE tipo = 'receita'
+            AND usuario_id = :uid 
+            AND pago_recebido = 1
+            AND data_transacao >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        ");
+
+        $stmt->bindValue(':uid', $userId);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+
+    // Total de prejuízos (tipo = 'despesa')
+    public static function getTotalPrejuizos($userId)
+    {
+        $db = Database::getConnection();
+
+        $stmt = $db->prepare("
+            SELECT SUM(valor) AS total
+            FROM transacao
+            WHERE tipo = 'despesa'
+            AND usuario_id = :uid
+            AND pago_recebido = 1
+            AND data_transacao >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        ");
+
+        $stmt->bindValue(':uid', $userId);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+
+    // Resumo pronto pra usar no dashboard
+    public static function getResumoFinanceiro($userId)
+    {
+        return [
+            'ganhos'    => self::getTotalGanhos($userId),
+            'prejuizos' => self::getTotalPrejuizos($userId),
+        ];
+    }
+
 }
 

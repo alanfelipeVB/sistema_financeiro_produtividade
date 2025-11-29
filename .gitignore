@@ -1,0 +1,35 @@
+# Arquivos sensíveis
+.env
+env.php
+*.env.php
+
+# Composer
+/vendor/
+/composer.lock
+
+# Cache / Logs
+/logs/
+/cache/
+/tmp/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+nbproject/
+
+# Uploads do sistema
+/uploads/
+storage/
+
+# Arquivos do XAMPP/WAMP
+.htaccess
+.htaccess.backup
+*.bak
+
+# Arquivos de build
+node_modules/
+dist/
